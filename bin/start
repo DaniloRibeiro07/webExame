@@ -4,5 +4,6 @@ docker run \
        -it \
        -w /app \
        -v $(pwd):/app \
+       -p 4567:4567 \
        ruby:3.2.5 \
-       sh -c "bundle install && ruby app.rb"
+       sh -c "bundle install && puma -p 4567"
