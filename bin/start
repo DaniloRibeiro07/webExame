@@ -1,0 +1,8 @@
+docker run \
+       --rm \
+       --name rubyWebExame \
+       -it \
+       -w /app \
+       -v $(pwd):/app \
+       ruby:3.2.5 \
+       sh -c "bundle install && ruby app.rb"
