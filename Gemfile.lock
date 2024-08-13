@@ -59,6 +59,8 @@ GEM
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.32.0)
       parser (>= 3.3.1.0)
+    rubocop-rspec (3.0.4)
+      rubocop (~> 1.61)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
     simplecov (0.22.0)
@@ -88,6 +90,7 @@ DEPENDENCIES
   rackup (~> 2.1)
   rspec (~> 3.4)
   rubocop
+  rubocop-rspec
   simplecov
   sinatra (~> 4.0)
 

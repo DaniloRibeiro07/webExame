@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require './db/db'
+
 class ApplicationModel
   def initialize(*params)
     return if params[0]&.class != Hash
@@ -14,7 +16,7 @@ class ApplicationModel
   def self.create(*params)
     return false if params[0]&.class != Hash
 
-    params_sql = params[0].values.map { |param| param.gsub("'", "''") }.join("', '")
+    params_sql = params[0].values.map { |param| param&.gsub("'", "''") }.join("', '")
     query_sql <<-SQL_CMD.gsub(/\s+/, ' ').strip
     INSERT INTO #{self::TABLE_NAME} (#{params[0].keys.map(&:to_s).join ', '})
     VALUES ('#{params_sql}');
@@ -49,7 +51,7 @@ class ApplicationModel
 
   private_class_method def self.query_sql(sql)
     begin
-      pgdb = PG.connect host: 'PGExame', user: 'admin', password: 'admin', dbname: 'db'
+      pgdb = PG.connect host: 'PGExame', user: 'admin', password: 'admin', dbname: Db.name
       result = pgdb.exec(sql)
     rescue StandardError => e
       result = e

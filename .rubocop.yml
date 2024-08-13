@@ -1,2 +1,10 @@
+require: rubocop-rspec
+
 Style/Documentation:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/ExampleLength:
   Enabled: false

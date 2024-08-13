@@ -2,7 +2,7 @@
 
 require './db/db'
 
-class Helpers
+class ImportCsvToBd
   def self.import_csv(file)
     data = file.split "\n"
 
@@ -10,7 +10,7 @@ class Helpers
       register_all_component exam_data.split ';'
     end
 
-    true
+    'finish'
   end
 
   private_class_method def self.register_all_component(exam_data)
@@ -20,7 +20,7 @@ class Helpers
     doctor = select_doctor exam_data
     return unless doctor
 
-    exam = select_exam exam_data
+    exam = select_exam exam_data, patient, doctor
     return unless exam
 
     result_exam = ExamResult.create exam_id: exam.id, type: exam_data[13],
@@ -35,7 +35,7 @@ class Helpers
     patient = Patient.found_or_create_patient cpf: exam_data[0], name: exam_data[1], email: exam_data[2],
                                               date_of_birth: exam_data[3], address: exam_data[4],
                                               city: exam_data[5], state: exam_data[6]
-    return if patient
+    return patient if patient
 
     p 'deu ruim no cadastro do paciente'
     p exam_data
@@ -45,18 +45,19 @@ class Helpers
   private_class_method def self.select_doctor(exam_data)
     doctor = Doctor.found_or_create_doctor crm: exam_data[7], crm_state: exam_data[8],
                                            name: exam_data[9], email: exam_data[10]
-    return if doctor
+
+    return doctor if doctor
 
     p 'deu ruim no cadastro medico'
     p exam_data
     false
   end
 
-  private_class_method def self.select_exam(exam_data)
+  private_class_method def self.select_exam(exam_data, patient, doctor)
     exam = Exam.found_or_create_exam token: exam_data[11], date: exam_data[12],
                                      patient_id: patient.id, doctor_id: doctor.id
 
-    return if exam
+    return exam if exam
 
     p 'deu ruim no cadastro do exame'
     p exam_data

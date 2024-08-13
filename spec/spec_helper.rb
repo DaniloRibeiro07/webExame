@@ -15,28 +15,10 @@
 # it.
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
-require 'rack/test'
 
-require 'simplecov'
-
-SimpleCov.start do
-  add_group 'Models', 'app/models'
-  add_group 'Controllers', 'app/controllers'
-  add_group 'Helpers', 'app/helpers'
-  add_filter '/spec/'
-end
+require_relative 'spec_configure'
 
 RSpec.configure do |config|
-  config.include Rack::Test::Methods, type: :request
-
-  config.define_derived_metadata(file_path: %r{/spec/requests/}) do |metadata|
-    def app
-      WebApp
-    end
-
-    metadata[:type] = :request
-  end
-
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

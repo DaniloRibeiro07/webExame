@@ -10,5 +10,6 @@ gem 'rack-test', '~> 2.1'
 gem 'rackup', '~> 2.1'
 gem 'rspec', '~> 3.4'
 gem 'rubocop', require: false
+gem 'rubocop-rspec'
 gem 'simplecov', require: false
 gem 'sinatra', '~> 4.0'

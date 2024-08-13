@@ -10,9 +10,15 @@ require './app/models/patient'
 class Db
   MODELS = [Patient, Doctor, Exam, ExamResult].freeze
 
+  def self.name
+    return 'test' if ENV['TEST'] == 'true'
+
+    'db'
+  end
+
   def self.init_models
     begin
-      pgdb = PG.connect host: 'PGExame', user: 'admin', password: 'admin', dbname: 'db'
+      pgdb = PG.connect host: 'PGExame', user: 'admin', password: 'admin', dbname: name
 
       MODELS.each do |model|
         next if model.created?
@@ -32,23 +38,21 @@ class Db
       create_database(pgdb)
     rescue StandardError => e
       puts e
+      create_database(pgdb)
     end
     pgdb.close
     init_models
   end
 
   private_class_method def self.drop_database(pgdb)
-    pgdb.exec 'DROP DATABASE db'
-    puts 'Database db deletado'
+    pgdb.exec "DROP DATABASE #{name}"
   end
 
   private_class_method def self.create_database(pgdb)
-    pgdb.exec 'CREATE DATABASE db'
-    puts 'Database db criado'
+    pgdb.exec "CREATE DATABASE #{name}"
   end
 
   private_class_method def self.create_model_in_db(pgdb, model)
     pgdb.exec model::SQL
-    puts "Model: #{model.name} criado!"
   end
 end
