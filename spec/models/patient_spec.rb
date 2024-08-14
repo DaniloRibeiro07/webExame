@@ -6,16 +6,16 @@ describe Patient do
       result = Patient.create cpf: '015.956.326-12', name: 'Joao', email: 'joao@email.com', date_of_birth: '2012-05-05',
                               address: 'rua fernando', city: 'São Paulo', state: 'São Paulo'
 
-      last_Patient = Patient.all.last
+      last_patient = Patient.all.last
 
-      expect(last_Patient.cpf).to eq '015.956.326-12'
-      expect(last_Patient.name).to eq 'Joao'
-      expect(last_Patient.email).to eq 'joao@email.com'
-      expect(last_Patient.date_of_birth).to eq '2012-05-05'
-      expect(last_Patient.address).to eq 'rua fernando'
-      expect(last_Patient.city).to eq 'São Paulo'
-      expect(last_Patient.state).to eq 'São Paulo'
-      expect(last_Patient.id).not_to eq nil
+      expect(last_patient.cpf).to eq '015.956.326-12'
+      expect(last_patient.name).to eq 'Joao'
+      expect(last_patient.email).to eq 'joao@email.com'
+      expect(last_patient.date_of_birth).to eq '2012-05-05'
+      expect(last_patient.address).to eq 'rua fernando'
+      expect(last_patient.city).to eq 'São Paulo'
+      expect(last_patient.state).to eq 'São Paulo'
+      expect(last_patient.id).not_to eq nil
     end
 
     context 'failed because' do

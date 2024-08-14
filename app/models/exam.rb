@@ -21,7 +21,6 @@ class Exam < ApplicationModel
   SQL_CMD
 
   def self.create(patient_id: nil, doctor_id: nil, token: nil, date: nil)
-    return if !patient_id || !doctor_id || !token || !date
 
     result = super(patient_id:, doctor_id:, token:, date:)
     return find(patient_id:, doctor_id:, token:, date:)[0] if result.instance_of?(PG::Result)

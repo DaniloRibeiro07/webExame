@@ -23,7 +23,6 @@ class Patient < ApplicationModel
 
   def self.create(*params)
     params = params[0]
-    return false if check_all_params_to_create params
 
     result = super cpf: params[:cpf], name: params[:name], email: params[:email],
                    date_of_birth: params[:date_of_birth], address: params[:address],
@@ -44,8 +43,4 @@ class Patient < ApplicationModel
            city: params[:city], state: params[:state]
   end
 
-  private_class_method def self.check_all_params_to_create(params)
-    !params[:cpf] || !params[:name] || !params[:email] || !params[:date_of_birth] ||
-    !params[:address] || !params[:city] || !params[:state]
-  end
 end
