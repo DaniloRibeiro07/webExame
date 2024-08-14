@@ -35,7 +35,9 @@ class ApplicationModel
   end
 
   def self.in_bd?
-    true if query_sql("SELECT * FROM #{self::TABLE_NAME}").class != PG::UndefinedTable
+    return true if query_sql("SELECT * FROM #{self::TABLE_NAME}").class != PG::UndefinedTable
+    
+    false
   end
 
   def self.find(*params)

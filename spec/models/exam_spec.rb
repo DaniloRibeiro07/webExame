@@ -1,7 +1,7 @@
 require './app/models/exam.rb'
 
 describe Exam do 
-  context '#create' do
+  context '#self.create' do
     it 'with sucess' do 
       patient = Patient.create cpf: '015.956.326-12', name: 'Joao', email: 'joao@email.com', date_of_birth: '2012-05-05',
                               address: 'rua fernando', city: 'São Paulo', state: 'São Paulo'
@@ -75,7 +75,7 @@ describe Exam do
     end
   end
 
-  context '#found_or_create_Exam' do 
+  context '#self.found_or_create_Exam' do 
     it 'Found a Exam' do
       patient = Patient.create cpf: '015.956.326-12', name: 'Joao', email: 'joao@email.com', date_of_birth: '2012-05-05',
             address: 'rua fernando', city: 'São Paulo', state: 'São Paulo'

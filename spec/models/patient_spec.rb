@@ -1,7 +1,7 @@
 require './app/models/patient.rb'
 
 describe Patient do 
-  context '#create' do
+  context '#self.create' do
     it 'with sucess' do 
       result = Patient.create cpf: '015.956.326-12', name: 'Joao', email: 'joao@email.com', date_of_birth: '2012-05-05',
                               address: 'rua fernando', city: 'São Paulo', state: 'São Paulo'
@@ -97,7 +97,7 @@ describe Patient do
     end
   end
 
-  context '#found_or_create_patient' do 
+  context '#self.found_or_create_patient' do 
     it 'Found Patient' do
       Patient.create cpf: '015.956.326-12', name: 'Joao', email: 'joao@email.com', date_of_birth: '2012-05-05',
                               address: 'rua fernando', city: 'São Paulo', state: 'São Paulo'

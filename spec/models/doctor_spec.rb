@@ -1,7 +1,7 @@
 require './app/models/doctor.rb'
 
 describe Doctor do 
-  context '#create' do
+  context '#self.create' do
     it 'with sucess' do 
       result = Doctor.create crm: '995', crm_state: 'SE', name: 'Jorge Silva', email: 'jorge@email.com'
 
@@ -61,7 +61,7 @@ describe Doctor do
     end
   end
 
-  context '#found_or_create_doctor' do 
+  context '#self.found_or_create_doctor' do 
     it 'Found a doctor' do
       Doctor.create crm: '995', crm_state: 'SE', name: 'Jorge Silva', email: 'jorge@email.com'
 
