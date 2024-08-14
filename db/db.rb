@@ -34,7 +34,7 @@ class Db
   def self.truncate
     begin
       pgdb = PG.connect host: 'PGExame', user: 'admin', password: 'admin', dbname: name
-      table_names = MODELS.map{|model| model::TABLE_NAME}
+      table_names = MODELS.map { |model| model::TABLE_NAME }
       pgdb.exec "TRUNCATE #{table_names.join(', ')} RESTART IDENTITY;"
     rescue StandardError => e
       puts e

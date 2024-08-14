@@ -26,7 +26,7 @@ class ImportCsvToBd
     result_exam = ExamResult.create exam_id: exam.id, type: exam_data[13],
                                     limit_exam: exam_data[14], result_type: exam_data[15]
 
-    return if result_exam
+    nil if result_exam
   end
 
   private_class_method def self.select_patient(exam_data)

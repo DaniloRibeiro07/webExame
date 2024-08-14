@@ -14,29 +14,26 @@ class ApplicationModel
   end
 
   def self.create(*params)
-    params = params[0]
-    return false if params&.class != Hash
-    params.values.each{|param| return false if param.nil?}
+    return false if params[0]&.class != Hash
 
-    params_sql = params.values.map { |param| param&.gsub("'", "''") }.join("', '")
-    query_sql <<-SQL_CMD.gsub(/\s+/, ' ').strip
-    INSERT INTO #{self::TABLE_NAME} (#{params.keys.map(&:to_s).join ', '})
-    VALUES ('#{params_sql}');
-    SQL_CMD
+    params[0].each_value { |param| return false if param.nil? }
+
+    create_query_sql params[0]
   end
 
   def self.all
     results = query_sql(<<-SQL_CMD.gsub(/\s+/, ' ').strip
       SELECT * FROM #{self::TABLE_NAME};
     SQL_CMD
-             ).to_a
+                       ).to_a
     return results.map { |result| new(result) } if results.any?
+
     []
   end
 
   def self.in_bd?
     return true if query_sql("SELECT * FROM #{self::TABLE_NAME}").class != PG::UndefinedTable
-    
+
     false
   end
 
@@ -64,5 +61,13 @@ class ApplicationModel
     end
     pgdb.close
     result
+  end
+
+  private_class_method def self.create_query_sql(*params)
+    params_sql = params[0].values.map { |param| param&.gsub("'", "''") }.join("', '")
+    query_sql <<-SQL_CMD.gsub(/\s+/, ' ').strip
+    INSERT INTO #{self::TABLE_NAME} (#{params[0].keys.map(&:to_s).join ', '})
+    VALUES ('#{params_sql}');
+    SQL_CMD
   end
 end

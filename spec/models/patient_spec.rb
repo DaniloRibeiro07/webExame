@@ -1,12 +1,14 @@
-require './app/models/patient.rb'
+# frozen_string_literal: true
 
-describe Patient do 
-  context '#self.create' do
-    it 'with sucess' do 
-      result = Patient.create cpf: '015.956.326-12', name: 'Joao', email: 'joao@email.com', date_of_birth: '2012-05-05',
-                              address: 'rua fernando', city: 'São Paulo', state: 'São Paulo'
+require './app/models/patient'
 
-      last_patient = Patient.all.last
+describe Patient do
+  describe '#self.create' do
+    it 'with sucess' do
+      described_class.create cpf: '015.956.326-12', email: 'joao@email.com', date_of_birth: '2012-05-05',
+                             address: 'rua fernando', city: 'São Paulo', state: 'São Paulo', name: 'Joao'
+
+      last_patient = described_class.all.last
 
       expect(last_patient.cpf).to eq '015.956.326-12'
       expect(last_patient.name).to eq 'Joao'
@@ -15,112 +17,119 @@ describe Patient do
       expect(last_patient.address).to eq 'rua fernando'
       expect(last_patient.city).to eq 'São Paulo'
       expect(last_patient.state).to eq 'São Paulo'
-      expect(last_patient.id).not_to eq nil
+      expect(last_patient.id).not_to be_nil
     end
 
-    context 'failed because' do
-      it 'miss cpf' do 
-        result = Patient.create cpf: nil, name: 'Joao', email: 'joao@email.com', date_of_birth: '2012-05-05',
-                              address: 'rua fernando', city: 'São Paulo', state: 'São Paulo'
+    context 'when it fails because of' do
+      it 'miss cpf' do
+        result = described_class.create cpf: nil, email: 'joao@email.com', date_of_birth: '2012-05-05',
+                                        address: 'rua fernando', city: 'São Paulo', state: 'São Paulo', name: 'Joao'
 
-        expect(result).to eq false
-        expect(Patient.all).to eq []
+        expect(result).to be false
+        expect(described_class.all).to eq []
       end
 
-      it 'miss name' do 
-        result = Patient.create cpf: '015.956.326-12', name: nil, email: 'joao@email.com', date_of_birth: '2012-05-05',
-                              address: 'rua fernando', city: 'São Paulo', state: 'São Paulo'
+      it 'miss name' do
+        result = described_class.create cpf: '015.956.326-12', email: 'joao@email.com', date_of_birth: '2012-05-05',
+                                        address: 'rua fernando', city: 'São Paulo', state: 'São Paulo', name: nil
 
-        expect(Patient.all).to eq []
-        expect(result).to eq false
+        expect(described_class.all).to eq []
+        expect(result).to be false
       end
 
-      it 'miss email' do 
-        result = Patient.create cpf: '015.956.326-12', name: 'Joao', email: nil, date_of_birth: '2012-05-05',
-                              address: 'rua fernando', city: 'São Paulo', state: 'São Paulo'
+      it 'miss email' do
+        result = described_class.create cpf: '015.956.326-12', name: 'Joao', email: nil, date_of_birth: '2012-05-05',
+                                        address: 'rua fernando', city: 'São Paulo', state: 'São Paulo'
 
-        expect(Patient.all).to eq []
-        expect(result).to eq false
+        expect(described_class.all).to eq []
+        expect(result).to be false
       end
 
-      it 'miss date of birth' do 
-        result = Patient.create cpf: '015.956.326-12', name: 'Joao', email: 'joao@email.com', date_of_birth: nil,
-                              address: 'rua fernando', city: 'São Paulo', state: 'São Paulo'
+      it 'miss date of birth' do
+        result = described_class.create cpf: '015.956.326-12', email: 'joao@email.com', date_of_birth: nil,
+                                        address: 'rua fernando', city: 'São Paulo', state: 'São Paulo', name: 'Joao'
 
-        expect(Patient.all).to eq []
-        expect(result).to eq false
+        expect(described_class.all).to eq []
+        expect(result).to be false
       end
 
-      it 'miss address' do 
-        result = Patient.create cpf: '015.956.326-12', name: 'Joao', email: 'joao@email.com', date_of_birth: '2012-05-05',
-                              address: nil, city: 'São Paulo', state: 'São Paulo'
+      it 'miss address' do
+        result = described_class.create cpf: '015.956.326-12', name: 'Joao', email: 'joao@email.com',
+                                        address: nil, city: 'São Paulo', state: 'São Paulo', date_of_birth: '2012-05-05'
 
-        expect(Patient.all).to eq []
-        expect(result).to eq false
+        expect(described_class.all).to eq []
+        expect(result).to be false
       end
 
-      it 'miss city' do 
-        result = Patient.create cpf: '015.956.326-12', name: 'Joao', email: 'joao@email.com', date_of_birth: '2012-05-05',
-                              address: 'rua fernando', city: nil, state: 'São Paulo'
+      it 'miss city' do
+        result = described_class.create cpf: '015.956.326-12', name: 'Joao', email: 'joao@email.com',
+                                        address: 'rua fernando', city: nil,
+                                        state: 'São Paulo', date_of_birth: '2012-05-05'
 
-        expect(Patient.all).to eq []
-        expect(result).to eq false
+        expect(described_class.all).to eq []
+        expect(result).to be false
       end
 
-      it 'miss state' do 
-        result = Patient.create cpf: '015.956.326-12', name: 'Joao', email: 'joao@email.com', date_of_birth: '2012-05-05',
-                              address: 'rua fernando', city: 'São Paulo', state: nil
+      it 'miss state' do
+        result = described_class.create cpf: '015.956.326-12', name: 'Joao', email: 'joao@email.com',
+                                        address: 'rua fernando', city: 'São Paulo',
+                                        state: nil, date_of_birth: '2012-05-05'
 
-        expect(Patient.all).to eq []
-        expect(result).to eq false
+        expect(described_class.all).to eq []
+        expect(result).to be false
       end
 
-      it 'duplicate cpf' do 
-         Patient.create cpf: '015.956.326-12', name: 'Joao', email: 'joao@email.com', date_of_birth: '2012-05-05',
-                              address: 'rua fernando', city: 'São Paulo', state: 'São Paulo'
-         result = Patient.create cpf: '015.956.326-12', name: 'Maria', email: 'maria@email.com', date_of_birth: '2014-05-05',
-                              address: 'rua antonia', city: 'São Paulo', state: 'São Paulo'
+      it 'duplicate cpf' do
+        described_class.create cpf: '015.956.326-12', email: 'joao@email.com', date_of_birth: '2012-05-05',
+                               address: 'rua fernando', city: 'São Paulo', state: 'São Paulo', name: 'Joao'
 
-         expect(Patient.all.length).to eq 1
-         expect(result).to eq false
+        result = described_class.create cpf: '015.956.326-12', name: 'Maria', email: 'maria@email.com',
+                                        date_of_birth: '2014-05-05', state: 'São Paulo',
+                                        address: 'rua antonia', city: 'São Paulo'
+
+        expect(described_class.all.length).to eq 1
+        expect(result).to be false
       end
 
-      it 'duplicate email' do 
-        Patient.create cpf: '015.956.326-12', name: 'Joao', email: 'joao@email.com', date_of_birth: '2012-05-05',
-                              address: 'rua fernando', city: 'São Paulo', state: 'São Paulo'
-        result = Patient.create cpf: '015.876.326-12', name: 'Maria', email: 'joao@email.com', date_of_birth: '2014-05-05',
-                              address: 'rua antonia', city: 'São Paulo', state: 'São Paulo'
+      it 'duplicate email' do
+        described_class.create cpf: '015.956.326-12', email: 'joao@email.com', date_of_birth: '2012-05-05',
+                               address: 'rua fernando', city: 'São Paulo', state: 'São Paulo', name: 'Joao'
+        result = described_class.create cpf: '015.876.326-12', name: 'Maria', email: 'joao@email.com',
+                                        date_of_birth: '2014-05-05', state: 'São Paulo',
+                                        address: 'rua antonia', city: 'São Paulo'
 
-        expect(Patient.all.length).to eq 1
-        expect(result).to eq false
-     end
+        expect(described_class.all.length).to eq 1
+        expect(result).to be false
+      end
     end
   end
 
-  context '#self.found_or_create_patient' do 
+  describe '#self.found_or_create_patient' do
     it 'Found Patient' do
-      Patient.create cpf: '015.956.326-12', name: 'Joao', email: 'joao@email.com', date_of_birth: '2012-05-05',
-                              address: 'rua fernando', city: 'São Paulo', state: 'São Paulo'
+      described_class.create cpf: '015.956.326-12', email: 'joao@email.com', date_of_birth: '2012-05-05',
+                             address: 'rua fernando', city: 'São Paulo', state: 'São Paulo', name: 'Joao'
 
-      result = Patient.found_or_create_patient(cpf: '015.956.326-12')
+      result = described_class.found_or_create_patient(cpf: '015.956.326-12')
 
       expect(result.id).not_to eq []
       expect(result.name).to eq 'Joao'
     end
 
     it 'Crate Patient' do
-      result = Patient.found_or_create_patient cpf: '015.956.326-12', name: 'Joao', email: 'joao@email.com', date_of_birth: '2012-05-05',
-                              address: 'rua fernando', city: 'São Paulo', state: 'São Paulo'
+      result = described_class.found_or_create_patient cpf: '015.956.326-12', email: 'joao@email.com',
+                                                       date_of_birth: '2012-05-05',
+                                                       address: 'rua fernando', city: 'São Paulo',
+                                                       state: 'São Paulo', name: 'Joao'
 
-      expect(result.id).not_to eq nil
-      expect(Patient.all.length).to eq 1
+      expect(result.id).not_to be_nil
+      expect(described_class.all.length).to eq 1
     end
 
     it "not found and doesn't have enough parameters to create" do
-      result = Patient.found_or_create_patient cpf: '015.956.326-12', name: 'Joao', email: 'joao@email.com'
+      result = described_class.found_or_create_patient cpf: '015.956.326-12', name: 'Joao', email: 'joao@email.com'
 
-      expect(result).to eq false
-      expect(Patient.all).to eq []
+      expect(result).to be false
+      expect(described_class.all).to eq []
     end
   end
 end

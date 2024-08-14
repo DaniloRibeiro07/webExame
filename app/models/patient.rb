@@ -42,5 +42,4 @@ class Patient < ApplicationModel
            date_of_birth: params[:date_of_birth], address: params[:address],
            city: params[:city], state: params[:state]
   end
-
 end

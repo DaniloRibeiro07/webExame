@@ -13,7 +13,6 @@ end
 require 'rack/test'
 require './db/db'
 
-
 RSpec.configure do |config|
   config.include Rack::Test::Methods, type: :request
 

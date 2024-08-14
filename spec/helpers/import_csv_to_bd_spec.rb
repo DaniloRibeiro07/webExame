@@ -3,7 +3,7 @@
 require './app/helpers/import_csv_to_bd'
 
 describe ImportCsvToBd do
-  context '#self.import_csv' do 
+  describe '#self.import_csv' do
     it 'sucess' do
       csv_data = File.open './spec/support/exam_data_simple.csv'
       result = described_class.import_csv csv_data.read
