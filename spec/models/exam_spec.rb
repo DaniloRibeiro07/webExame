@@ -22,8 +22,9 @@ describe Exam do
       it 'miss patient id' do  
         doctor = Doctor.create crm: '995', crm_state: 'SE', name: 'Jorge Silva', email: 'jorge@email.com'
 
-        Exam.create patient_id: nil, doctor_id: doctor.id, token: '95954A', date: '2021-03-05'
+        result = Exam.create patient_id: nil, doctor_id: doctor.id, token: '95954A', date: '2021-03-05'
 
+        expect(result).to eq false
         expect(Exam.all).to eq []
       end
 
@@ -31,8 +32,9 @@ describe Exam do
         patient = Patient.create cpf: '015.956.326-12', name: 'Joao', email: 'joao@email.com', date_of_birth: '2012-05-05',
                               address: 'rua fernando', city: 'São Paulo', state: 'São Paulo'
 
-        Exam.create patient_id: patient.id, doctor_id: nil, token: '95954A', date: '2021-03-05'
+        result = Exam.create patient_id: patient.id, doctor_id: nil, token: '95954A', date: '2021-03-05'
 
+        expect(result).to eq false
         expect(Exam.all).to eq []
       end
 
@@ -41,8 +43,9 @@ describe Exam do
                               address: 'rua fernando', city: 'São Paulo', state: 'São Paulo'
         doctor = Doctor.create crm: '995', crm_state: 'SE', name: 'Jorge Silva', email: 'jorge@email.com'
 
-        Exam.create patient_id: patient.id, doctor_id: doctor.id, token: nil, date: '2021-03-05'
+        result = Exam.create patient_id: patient.id, doctor_id: doctor.id, token: nil, date: '2021-03-05'
 
+        expect(result).to eq false
         expect(Exam.all).to eq []
       end
 
@@ -51,8 +54,9 @@ describe Exam do
                               address: 'rua fernando', city: 'São Paulo', state: 'São Paulo'
         doctor = Doctor.create crm: '995', crm_state: 'SE', name: 'Jorge Silva', email: 'jorge@email.com'
 
-        Exam.create patient_id: patient.id, doctor_id: doctor.id, token: '95954A', date: nil
+        result = Exam.create patient_id: patient.id, doctor_id: doctor.id, token: '95954A', date: nil
 
+        expect(result).to eq false
         expect(Exam.all).to eq []
       end
 

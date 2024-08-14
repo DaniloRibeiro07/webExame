@@ -21,7 +21,7 @@ class Db
       pgdb = PG.connect host: 'PGExame', user: 'admin', password: 'admin', dbname: name
 
       MODELS.each do |model|
-        next if model.created?
+        next if model.in_bd?
 
         create_model_in_db(pgdb, model)
       end

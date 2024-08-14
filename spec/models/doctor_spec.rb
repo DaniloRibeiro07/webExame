@@ -18,24 +18,28 @@ describe Doctor do
       it 'miss crm' do 
         result = Doctor.create crm: nil, crm_state: 'SE', name: 'Jorge Silva', email: 'jorge@email.com'
 
+        expect(result).to eq false
         expect(Doctor.all).to eq []
       end
 
       it 'miss crm_state' do 
         result = Doctor.create crm: '995', crm_state: nil, name: 'Jorge Silva', email: 'jorge@email.com'
 
+        expect(result).to eq false
         expect(Doctor.all).to eq []
       end
 
       it 'miss name' do 
         result = Doctor.create crm: '995', crm_state: "SE", name: nil, email: 'jorge@email.com'
 
+        expect(result).to eq false
         expect(Doctor.all).to eq []
       end
 
       it 'miss email' do 
         result = Doctor.create crm: '995', crm_state: "SE", name: 'Jorge Silva', email: nil
-
+        
+        expect(result).to eq false
         expect(Doctor.all).to eq []
       end
 

@@ -23,6 +23,7 @@ describe Patient do
         result = Patient.create cpf: nil, name: 'Joao', email: 'joao@email.com', date_of_birth: '2012-05-05',
                               address: 'rua fernando', city: 'São Paulo', state: 'São Paulo'
 
+        expect(result).to eq false
         expect(Patient.all).to eq []
       end
 
@@ -31,6 +32,7 @@ describe Patient do
                               address: 'rua fernando', city: 'São Paulo', state: 'São Paulo'
 
         expect(Patient.all).to eq []
+        expect(result).to eq false
       end
 
       it 'miss email' do 
@@ -38,6 +40,7 @@ describe Patient do
                               address: 'rua fernando', city: 'São Paulo', state: 'São Paulo'
 
         expect(Patient.all).to eq []
+        expect(result).to eq false
       end
 
       it 'miss date of birth' do 
@@ -45,6 +48,7 @@ describe Patient do
                               address: 'rua fernando', city: 'São Paulo', state: 'São Paulo'
 
         expect(Patient.all).to eq []
+        expect(result).to eq false
       end
 
       it 'miss address' do 
@@ -52,6 +56,7 @@ describe Patient do
                               address: nil, city: 'São Paulo', state: 'São Paulo'
 
         expect(Patient.all).to eq []
+        expect(result).to eq false
       end
 
       it 'miss city' do 
@@ -59,6 +64,7 @@ describe Patient do
                               address: 'rua fernando', city: nil, state: 'São Paulo'
 
         expect(Patient.all).to eq []
+        expect(result).to eq false
       end
 
       it 'miss state' do 
@@ -66,6 +72,7 @@ describe Patient do
                               address: 'rua fernando', city: 'São Paulo', state: nil
 
         expect(Patient.all).to eq []
+        expect(result).to eq false
       end
 
       it 'duplicate cpf' do 
