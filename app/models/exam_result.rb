@@ -6,6 +6,7 @@ class ExamResult < ApplicationModel
   attr_accessor :id, :exam_id, :type, :limit_exam, :result_type
 
   TABLE_NAME = 'exam_results'
+  PARAMS = %w[id exam_id type limit_exam result_type].freeze
 
   SQL = <<-SQL_CMD.gsub(/\s+/, ' ').strip
       CREATE TABLE exam_results (

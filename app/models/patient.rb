@@ -5,6 +5,7 @@ require_relative 'application_model'
 class Patient < ApplicationModel
   attr_accessor :id, :cpf, :name, :email, :date_of_birth, :address, :city, :state
 
+  PARAMS = %w[id cpf name email date_of_birth address city state].freeze
   TABLE_NAME = 'patients'
 
   SQL = <<-SQL_CMD.gsub(/\s+/, ' ').strip

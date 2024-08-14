@@ -5,24 +5,24 @@ require './db/db'
 describe Db do
   describe '#self.name' do
     it 'in environment test' do
-      expect(described_class.name).to eq 'test'
+      expect(Db.name).to eq 'test'
     end
 
     it 'in not environment test' do
       ENV['TEST'] = nil
-      expect(described_class.name).to eq 'db'
+      expect(Db.name).to eq 'db'
       ENV['TEST'] = 'true'
     end
   end
 
   describe '#self.init_models' do
     it 'initialize all models in db' do
-      pgdb = PG.connect host: 'PGExame', user: 'admin', password: 'admin', dbname: described_class.name
+      pgdb = PG.connect host: 'PGExame', user: 'admin', password: 'admin', dbname: Db.name
       pgdb.exec 'DROP TABLE exam_results'
       pgdb.close
 
       expect(ExamResult.in_bd?).to be false
-      described_class.init_models
+      Db.init_models
       expect(ExamResult.in_bd?).to be true
     end
   end
@@ -36,7 +36,7 @@ describe Db do
       exam = Exam.create patient_id: patient.id, doctor_id: doctor.id, token: '95954A', date: '2021-03-05'
       ExamResult.create exam_id: exam.id, type: 'ecg', limit_exam: '59-6', result_type: '45'
 
-      described_class.truncate
+      Db.truncate
 
       expect(ExamResult.all.empty?).to be true
       expect(Exam.all.empty?).to be true
@@ -54,7 +54,7 @@ describe Db do
       exam = Exam.create patient_id: patient.id, doctor_id: doctor.id, token: '95954A', date: '2021-03-05'
       ExamResult.create exam_id: exam.id, type: 'ecg', limit_exam: '59-6', result_type: '45'
 
-      described_class.reset
+      Db.reset
 
       expect(ExamResult.all.empty?).to be true
       expect(ExamResult.in_bd?).to be true

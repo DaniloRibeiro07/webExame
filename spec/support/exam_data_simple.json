@@ -1,0 +1,80 @@
+[
+    {
+        "patient": {
+            "cpf": "048.973.170-88",
+            "name": "Emilly Batista Neto",
+            "email": "gerald.crona@ebert-quigley.com",
+            "date_of_birth": "2001-03-11",
+            "address": "165 Rua Rafaela",
+            "city": "Ituverava",
+            "state": "Alagoas"
+        },
+        "doctor": {
+            "crm": "B000BJ20J4",
+            "crm_state": "PI",
+            "name": "Maria Luiza Pires",
+            "email": "denna@wisozk.biz"
+        },
+        "token": "IQCZ17",
+        "date": "2021-08-05",
+        "exam_result": [
+            {
+                "type": "hemácias",
+                "limit_exam": "45-52",
+                "result_type": "97"
+            }
+        ]
+    },
+    {
+        "patient": {
+            "cpf": "048.108.026-04",
+            "name": "Juliana dos Reis Filho",
+            "email": "mariana_crist@kutch-torp.com",
+            "date_of_birth": "1995-07-03",
+            "address": "527 Rodovia Júlio",
+            "city": "Lagoa da Canoa",
+            "state": "Paraíba"
+        },
+        "doctor": {
+            "crm": "B0002IQM66",
+            "crm_state": "SC",
+            "name": "Maria Helena Ramalho",
+            "email": "rayford@kemmer-kunze.info"
+        },
+        "token": "0W9I67",
+        "date": "2021-07-09",
+        "exam_result": [
+            {
+                "type": "leucócitos",
+                "limit_exam": "9-61",
+                "result_type": "91"
+            }
+        ]
+    },
+    {
+        "patient": {
+            "cpf": "066.126.400-90",
+            "name": "Matheus Barroso",
+            "email": "maricela@streich.com",
+            "date_of_birth": "1972-03-09",
+            "address": "9378 Rua Stella Braga",
+            "city": "Senador Elói de Souza",
+            "state": "Pernambuco"
+        },
+        "doctor": {
+            "crm": "B000B7CDX4",
+            "crm_state": "SP",
+            "name": "Sra. Calebe Louzada",
+            "email": "kendra@nolan-sawayn.co"
+        },
+        "token": "T9O6AI",
+        "date": "2021-11-21",
+        "exam_result": [
+            {
+                "type": "plaquetas",
+                "limit_exam": "11-93",
+                "result_type": "67"
+            }
+        ]
+    }
+]

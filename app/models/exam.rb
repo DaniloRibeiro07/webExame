@@ -7,6 +7,8 @@ class Exam < ApplicationModel
 
   TABLE_NAME = 'exams'
 
+  PARAMS = %w[id patient_id doctor_id token date].freeze
+
   SQL = <<-SQL_CMD.gsub(/\s+/, ' ').strip
       CREATE TABLE exams(
         id SERIAL NOT NULL UNIQUE,
