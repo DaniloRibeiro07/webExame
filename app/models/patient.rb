@@ -23,14 +23,14 @@ class Patient < ApplicationModel
 
   def self.create(*params)
     params = params[0]
-    return if check_all_params_to_create params
+    return false if check_all_params_to_create params
 
     result = super cpf: params[:cpf], name: params[:name], email: params[:email],
                    date_of_birth: params[:date_of_birth], address: params[:address],
                    city: params[:city], state: params[:state]
     return find(cpf: params[:cpf])[0] if result.instance_of?(PG::Result)
 
-    puts result
+    false
   end
 
   def self.found_or_create_patient(*params)

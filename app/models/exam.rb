@@ -26,7 +26,7 @@ class Exam < ApplicationModel
     result = super(patient_id:, doctor_id:, token:, date:)
     return find(patient_id:, doctor_id:, token:, date:)[0] if result.instance_of?(PG::Result)
 
-    puts result
+    false
   end
 
   def self.found_or_create_exam(patient_id: nil, doctor_id: nil, token: nil, date: nil)

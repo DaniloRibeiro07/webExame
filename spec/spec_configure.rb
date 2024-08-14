@@ -12,6 +12,7 @@ end
 require 'rack/test'
 require './db/db'
 
+
 RSpec.configure do |config|
   config.include Rack::Test::Methods, type: :request
 
@@ -24,9 +25,10 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     ENV['TEST'] = 'true'
+    Db.reset
   end
 
   config.before do
-    Db.reset
+    Db.truncate
   end
 end

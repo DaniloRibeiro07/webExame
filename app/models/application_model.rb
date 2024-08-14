@@ -14,20 +14,24 @@ class ApplicationModel
   end
 
   def self.create(*params)
-    return false if params[0]&.class != Hash
+    params = params[0]
+    return false if params&.class != Hash
+    params.values.each{|param| return false if param.nil?}
 
-    params_sql = params[0].values.map { |param| param&.gsub("'", "''") }.join("', '")
+    params_sql = params.values.map { |param| param&.gsub("'", "''") }.join("', '")
     query_sql <<-SQL_CMD.gsub(/\s+/, ' ').strip
-    INSERT INTO #{self::TABLE_NAME} (#{params[0].keys.map(&:to_s).join ', '})
+    INSERT INTO #{self::TABLE_NAME} (#{params.keys.map(&:to_s).join ', '})
     VALUES ('#{params_sql}');
     SQL_CMD
   end
 
   def self.all
-    query_sql(<<-SQL_CMD.gsub(/\s+/, ' ').strip
+    results = query_sql(<<-SQL_CMD.gsub(/\s+/, ' ').strip
       SELECT * FROM #{self::TABLE_NAME};
     SQL_CMD
              ).to_a
+    return results.map { |result| new(result) } if results.any?
+    []
   end
 
   def self.created?

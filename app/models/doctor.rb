@@ -22,7 +22,7 @@ class Doctor < ApplicationModel
     result = super(crm:, crm_state:, name:, email:)
     return find(crm:)[0] if result.instance_of?(PG::Result)
 
-    puts result
+    false
   end
 
   def self.found_or_create_doctor(crm: nil, crm_state: nil, name: nil, email: nil)

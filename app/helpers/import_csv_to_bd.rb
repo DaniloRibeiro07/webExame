@@ -27,8 +27,6 @@ class ImportCsvToBd
                                     limit_exam: exam_data[14], result_type: exam_data[15]
 
     return if result_exam
-
-    p "deu ruim no cadastro do resultado do exame \n#{exam_data}"
   end
 
   private_class_method def self.select_patient(exam_data)
@@ -37,8 +35,6 @@ class ImportCsvToBd
                                               city: exam_data[5], state: exam_data[6]
     return patient if patient
 
-    p 'deu ruim no cadastro do paciente'
-    p exam_data
     false
   end
 
@@ -48,8 +44,6 @@ class ImportCsvToBd
 
     return doctor if doctor
 
-    p 'deu ruim no cadastro medico'
-    p exam_data
     false
   end
 
@@ -59,8 +53,6 @@ class ImportCsvToBd
 
     return exam if exam
 
-    p 'deu ruim no cadastro do exame'
-    p exam_data
     false
   end
 end

@@ -23,6 +23,6 @@ class ExamResult < ApplicationModel
     result = super(exam_id:, type:, limit_exam:, result_type:)
     return find(exam_id:, type:, limit_exam:, result_type:)[0] if result.instance_of?(PG::Result)
 
-    puts result
+    false
   end
 end
