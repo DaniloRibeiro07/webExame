@@ -5,11 +5,17 @@ require './db/db'
 require './app/helpers/import_csv_to_bd'
 
 class WebApp < Sinatra::Base
+  set :views, './app/views/'
+
   get '/' do
-    'Hello world!'
+    erb :index, layout: :layout
   end
 
   get '/exams' do
+    erb :exams, layout: :layout
+  end
+
+  get '/api/V1/exams' do
     content_type :json
     Exam.all.map do |exam|
       exam.to_json('callback', relations: { patient: { excepts: ['id'] }, doctor: { excepts: ['id'] },
@@ -17,7 +23,7 @@ class WebApp < Sinatra::Base
     end.to_json
   end
 
-  get '/exam/:token' do
+  get '/api/V1/exam/:token' do
     content_type :json
     result = Exam.find(token: params['token'])
     return {}.to_json unless result

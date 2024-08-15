@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 ruby '3.2.5'
 
+gem 'capybara'
 gem 'pg', '~> 1.5', '>= 1.5.6'
 gem 'puma', '~> 6.4', '>= 6.4.2'
 gem 'rack-test', '~> 2.1'

@@ -2,7 +2,7 @@
 
 require './app/controllers/application_controller'
 
-describe 'GET /exam/:token' do
+describe 'GET api/V1/exam/:token' do
   context 'with sucess' do
     it 'has exam' do
       patient = Patient.create cpf: '015.956.326-12', name: 'Joao', email: 'joao@email.com',
@@ -22,7 +22,7 @@ describe 'GET /exam/:token' do
                  { type: 'cadio', limit_exam: '45-9', result_type: '50' }
                ] }.to_json
 
-      get '/exam/95954A'
+      get '/api/V1/exam/95954A'
 
       expect(last_response.status).to eq 200
       expect(last_response.content_type).to eq 'application/json'
@@ -30,7 +30,7 @@ describe 'GET /exam/:token' do
     end
 
     it 'not found exam' do
-      get '/exam/95954A'
+      get '/api/V1/exam/95954A'
 
       expect(last_response.status).to eq 200
       expect(last_response.content_type).to eq 'application/json'

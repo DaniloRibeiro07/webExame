@@ -2,10 +2,10 @@
 
 require 'pg'
 require './app/models/application_model'
+require './app/models/patient'
 require './app/models/doctor'
 require './app/models/exam_result'
 require './app/models/exam'
-require './app/models/patient'
 
 class Db
   MODELS = [Patient, Doctor, Exam, ExamResult].freeze

@@ -1,0 +1,9 @@
+<% if Exam.all.any? %>
+  <% Exam.all.each do |exam| %>
+    Token: <%= exam.token %>
+    Paciente: <%= exam.patient.name %>
+    Médico: <%= exam.doctor.name %>
+  <% end %>
+<% else %>
+  Não há exames cadastrados no sistema
+<% end %>

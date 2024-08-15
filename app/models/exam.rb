@@ -3,6 +3,8 @@
 require_relative 'application_model'
 
 class Exam < ApplicationModel
+  belongs_to Doctor, Patient
+
   attr_accessor :id, :patient_id, :doctor_id, :token, :date
 
   TABLE_NAME = 'exams'

@@ -164,4 +164,28 @@ describe Exam do
       expect(exam.to_json(relations: { exam_result: { excepts: ['id'] } })).to eq json
     end
   end
+
+  describe '#patient' do
+    it 'recover patient object by relation' do
+      patient = Patient.create cpf: '015.956.326-12', name: 'Joao', email: 'joao@email.com',
+                               date_of_birth: '2012-05-05', address: 'rua fernando',
+                               city: 'São Paulo', state: 'São Paulo'
+      doctor = Doctor.create crm: '995', crm_state: 'SE', name: 'Jorge Silva', email: 'jorge@email.com'
+      exam = Exam.create patient_id: patient.id, doctor_id: doctor.id, token: '95954A', date: '2021-03-05'
+
+      expect(exam.patient.to_json).to eq patient.to_json
+    end
+  end
+
+  describe '#doctor' do
+    it 'recover doctor object by relation' do
+      patient = Patient.create cpf: '015.956.326-12', name: 'Joao', email: 'joao@email.com',
+                               date_of_birth: '2012-05-05', address: 'rua fernando',
+                               city: 'São Paulo', state: 'São Paulo'
+      doctor = Doctor.create crm: '995', crm_state: 'SE', name: 'Jorge Silva', email: 'jorge@email.com'
+      exam = Exam.create patient_id: patient.id, doctor_id: doctor.id, token: '95954A', date: '2021-03-05'
+
+      expect(exam.doctor.to_json).to eq doctor.to_json
+    end
+  end
 end

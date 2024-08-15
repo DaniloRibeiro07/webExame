@@ -65,6 +65,14 @@ class ApplicationModel
     results.map { |result| new(result) }
   end
 
+  private_class_method def self.belongs_to(*params)
+    params.each do |param|
+      define_method param.name.downcase do
+        param.find('id': send("#{param.name.downcase}_id"))[0]
+      end
+    end
+  end
+
   private_class_method def self.query_sql(sql)
     begin
       pgdb = PG.connect host: 'PGExame', user: 'admin', password: 'admin', dbname: Db.name

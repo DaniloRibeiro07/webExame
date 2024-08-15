@@ -11,7 +11,9 @@ SimpleCov.start do
 end
 
 require 'rack/test'
-require './db/db'
+require './app/controllers/application_controller'
+
+require 'capybara/rspec'
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods, type: :request
@@ -21,6 +23,11 @@ RSpec.configure do |config|
       WebApp
     end
     metadata[:type] = :request
+  end
+
+  config.define_derived_metadata(file_path: %r{/spec/system/}) do |metadata|
+    Capybara.app = WebApp
+    metadata[:type] = :system
   end
 
   config.before(:suite) do
