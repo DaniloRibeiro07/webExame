@@ -126,21 +126,25 @@
       return response.json();
     })
     .then(function (json) {
-      document.getElementById("exams").innerHTML = ""
-      json.forEach((exam) => {
-        document.getElementById("exams").innerHTML += card_exam(exam)
-      });
+      if(json.length==0){
+        document.getElementById("exams").innerHTML = "<h2>Não há exames cadastrados no sistema</h2>" 
+      }else{
+        document.getElementById("exams").innerHTML = ""
+        json.forEach((exam) => {
+          document.getElementById("exams").innerHTML += card_exam(exam)
+        });
+      }
     });
   }
 
   function card_exam(exam) {
     return `
-      <div class="card text-center mb-3 mx-2" style="width: 18rem;">
+      <div class="card text-center mb-3 mx-2" style="width: 18rem;" id="${exam.token}">
         <h5 class="card-header">Exame: ${exam.token} </h5>
         <div class="card-body">
           <p class="card-text">Paciente:  ${exam.patient.name} </p>
           <p class="card-text">Médico:  ${exam.doctor.name} </p>
-          <a class="btn btn-primary" onclick="window.search(this)" token="${exam.token}" id="teste">Detalhes</a>
+          <a class="btn btn-primary" onclick="window.search(this)" token="${exam.token}" id="button">Detalhes</a>
         </div>
       </div>
     `

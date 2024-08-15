@@ -22,7 +22,6 @@ describe 'User acess List Exams from root path' do
 
   it 'and no have exams' do
     visit '/'
-
     expect(page).to have_content 'Não há exames cadastrados no sistema'
   end
 end

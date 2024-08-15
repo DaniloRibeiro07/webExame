@@ -1,5 +1,9 @@
 docker network create web-exame-net 
 
+
+docker run -d --rm --name chrome-server -p 7900:7900 --network=web-exame-net -v $(pwd):/usr/src/app selenium/standalone-chrome:127.0
+
+
 docker run \
        --rm \
        --name PGExame \

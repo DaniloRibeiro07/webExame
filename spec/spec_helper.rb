@@ -16,9 +16,20 @@
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
-require_relative 'spec_configure'
+require './app/controllers/application_controller'
+require_relative './config/spec_simplecov'
+require_relative './config/spec_rack'
+require_relative './config/spec_capybara'
 
 RSpec.configure do |config|
+  config.before(:suite) do
+    ENV['TEST'] = 'true'
+    Db.reset
+  end
+
+  config.before do
+    Db.truncate
+  end
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
