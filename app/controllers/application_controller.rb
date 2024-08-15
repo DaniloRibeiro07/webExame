@@ -17,5 +17,14 @@ class WebApp < Sinatra::Base
     end.to_json
   end
 
+  get '/exam/:token' do
+    content_type :json
+    result = Exam.find(token: params['token'])
+    return {}.to_json unless result
+
+    result[0].to_json(relations: { patient: { excepts: ['id'] }, doctor: { excepts: ['id'] },
+                                   exam_result: { excepts: ['id'] } }, excepts: ['id'])
+  end
+
   run! if app_file == $PROGRAM_NAME
 end
