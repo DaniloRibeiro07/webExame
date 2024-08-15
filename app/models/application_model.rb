@@ -14,43 +14,16 @@ class ApplicationModel
   end
 
   def to_json(*args, relations: {}, excepts: [])
-    relations_not_used = relations&.keys&.map(&:to_s)
+    @available_relations = relations&.keys&.map(&:to_s)
 
-    result = self.class::PARAMS.map do |param|
-      if param.match?(/^\w*_id$/) && relations_not_used&.include?(param.gsub('_id', ''))
-        param_without_id = param.gsub('_id', '')
-        param_class_name = convert_to_class_name param_without_id
-        relations_not_used.delete param_without_id
-        relation_excepts = relations[param_without_id.to_sym][:excepts] if relations[param_without_id.to_sym].instance_of? Hash
-        relation_relations = relations[param_without_id.to_sym][:relations] if relations[param_without_id.to_sym].instance_of? Hash
+    result_with_belongs_relation = get_all_data_and_belongs_to_hash(relations, excepts)
 
-        next [param_without_id, Object.const_get(param_class_name).find(id: send(param))[0].to_json("callback", relations: relation_relations, excepts: relation_excepts)]
-      end
-      next if excepts&.include? param
-      [param, send(param)]
-    end.compact
+    relation_result = relation_many_results relations
 
-    relation_result = relations_not_used&.map do |relation|
-      relation_class_name = convert_to_class_name relation
-      next unless Object.const_get(relation_class_name)
+    result_with_belongs_relation.append(relation_result).compact! if relation_result&.any?
+    return result_with_belongs_relation.to_h if args.include? 'callback'
 
-      relation_result = Object.const_get(relation_class_name).find(:"#{self.class.name.downcase}_id" => id).map do |relation_internal|
-        relation_excepts = ["#{self.class.name.downcase}_id"]
-        relation_excepts.append(relations[relation.to_sym][:excepts]).flatten! if relations[relation.to_sym].instance_of? Hash
-        relation_relations = relations[relation.to_sym][:relations] if relations[relation.to_sym].instance_of? Hash
-        relation_internal.to_json("callback", relations: relation_relations, excepts: relation_excepts)
-      end
-      [relation, relation_result]
-    end&.compact&.flatten(1)
-
-    result.append(relation_result).compact! if relation_result&.any?
-    return result.to_h if args.include? "callback"
-    result.to_h.to_json
-  end 
-  #select * from exam_results where exam_id='1';
-
-  def convert_to_class_name(text)
-    text.split("_").map(&:capitalize).join
+    result_with_belongs_relation.to_h.to_json
   end
 
   def self.create(*params)
@@ -109,5 +82,57 @@ class ApplicationModel
     INSERT INTO #{self::TABLE_NAME} (#{params[0].keys.map(&:to_s).join ', '})
     VALUES ('#{params_sql}');
     SQL_CMD
+  end
+
+  private
+
+  def get_all_data_and_belongs_to_hash(relations, excepts)
+    self.class::PARAMS.map do |param|
+      if param.match?(/^\w*_id$/) && @available_relations&.include?(param.gsub('_id', ''))
+        next get_relation_belongs_to_hash param, relations
+      end
+      next if excepts&.include? param
+
+      [param, send(param)]
+    end.compact
+  end
+
+  def get_relation_belongs_to_hash(param, relations)
+    param_without_id = param.gsub('_id', '')
+    @available_relations.delete param_without_id
+    relation_excepts = relations[param_without_id.to_sym]&.dig :excepts
+    relation_relations = relations[param_without_id.to_sym]&.dig :relations
+    [param_without_id,
+     get_class_from_name(param_without_id).find(id: send(param))[0]
+                                          .to_json('callback', relations: relation_relations,
+                                                               excepts: relation_excepts)]
+  end
+
+  def relation_many_results(relations)
+    @available_relations&.map do |relation|
+      next unless get_class_from_name relation
+
+      hash_result = get_all_objects_by_relation_many(relation).map do |relation_object|
+        get_relation_many_hash(relation, relations, relation_object)
+      end
+      [relation, hash_result]
+    end&.compact&.flatten(1)
+  end
+
+  def get_relation_many_hash(relation, relations, relation_object)
+    relation_excepts = ["#{self.class.name.downcase}_id"]
+    if relations[relation.to_sym].instance_of? Hash
+      relation_excepts.append(relations[relation.to_sym][:excepts]).flatten!
+    end
+    relation_relations = relations[relation.to_sym]&.dig(:relations)
+    relation_object.to_json('callback', relations: relation_relations, excepts: relation_excepts)
+  end
+
+  def get_class_from_name(text)
+    Object.const_get(text.split('_').map(&:capitalize).join)
+  end
+
+  def get_all_objects_by_relation_many(relation)
+    get_class_from_name(relation).find("#{self.class.name.downcase}_id": id)
   end
 end

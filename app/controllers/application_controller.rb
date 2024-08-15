@@ -12,8 +12,8 @@ class WebApp < Sinatra::Base
   get '/exams' do
     content_type :json
     Exam.all.map do |exam|
-      exam.to_json("callback", relations:{patient:{excepts:['id']}, doctor:{excepts:["id"]}, exam_result:{excepts:["id"]}},
-                                excepts:["id"])
+      exam.to_json('callback', relations: { patient: { excepts: ['id'] }, doctor: { excepts: ['id'] },
+                                            exam_result: { excepts: ['id'] } }, excepts: ['id'])
     end.to_json
   end
 

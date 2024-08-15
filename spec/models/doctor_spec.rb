@@ -96,10 +96,10 @@ describe Doctor do
 
       expect(doctor.to_json).to eq json
     end
-    
+
     it 'convert all doctor params to json except id' do
       doctor = Doctor.create crm: '995', crm_state: 'SE', name: 'Jorge Silva', email: 'jorge@email.com'
-      json = {crm: '995', crm_state: 'SE', name: 'Jorge Silva', email: 'jorge@email.com' }.to_json
+      json = { crm: '995', crm_state: 'SE', name: 'Jorge Silva', email: 'jorge@email.com' }.to_json
 
       expect(doctor.to_json(excepts: ['id'])).to eq json
     end

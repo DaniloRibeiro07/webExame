@@ -11,3 +11,6 @@ RSpec/ExampleLength:
 
 RSpec/DescribedClass:
   EnforcedStyle: explicit
+
+Metrics/ClassLength:
+  Max: 120

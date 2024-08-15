@@ -138,12 +138,12 @@ describe Exam do
       doctor = Doctor.create crm: '995', crm_state: 'SE', name: 'Jorge Silva', email: 'jorge@email.com'
       exam = Exam.create patient_id: patient.id, doctor_id: doctor.id, token: '95954A', date: '2021-03-05'
 
-      json = { patient: {cpf: '015.956.326-12', name: 'Joao', email: 'joao@email.com', date_of_birth: '2012-05-05',
-                        address: 'rua fernando',city: 'São Paulo', state: 'São Paulo'},
-              doctor: {id: doctor.id, crm: '995', crm_state: 'SE', name: 'Jorge Silva', email: 'jorge@email.com'},
-              token: '95954A', date: '2021-03-05' }.to_json
+      json = { patient: { cpf: '015.956.326-12', name: 'Joao', email: 'joao@email.com', date_of_birth: '2012-05-05',
+                          address: 'rua fernando', city: 'São Paulo', state: 'São Paulo' },
+               doctor: { id: doctor.id, crm: '995', crm_state: 'SE', name: 'Jorge Silva', email: 'jorge@email.com' },
+               token: '95954A', date: '2021-03-05' }.to_json
 
-      expect(exam.to_json(relations:{patient: {excepts: ["id"]}, doctor: nil}, excepts: ["id"])).to eq json
+      expect(exam.to_json(relations: { patient: { excepts: ['id'] }, doctor: nil }, excepts: ['id'])).to eq json
     end
 
     it 'convert all exam params to json and include all exame result params, except id from relation' do
@@ -152,17 +152,16 @@ describe Exam do
                                city: 'São Paulo', state: 'São Paulo'
       doctor = Doctor.create crm: '995', crm_state: 'SE', name: 'Jorge Silva', email: 'jorge@email.com'
       exam = Exam.create patient_id: patient.id, doctor_id: doctor.id, token: '95954A', date: '2021-03-05'
-      exam_result = ExamResult.create exam_id: exam.id, type: 'ecg', limit_exam: '59-6', result_type: '45'
-      exam_result = ExamResult.create exam_id: exam.id, type: 'emg', limit_exam: '60-8', result_type: '12'
-      exam_result = ExamResult.create exam_id: exam.id, type: 'cadio', limit_exam: '45-9', result_type: '50'
+      ExamResult.create exam_id: exam.id, type: 'ecg', limit_exam: '59-6', result_type: '45'
+      ExamResult.create exam_id: exam.id, type: 'emg', limit_exam: '60-8', result_type: '12'
+      ExamResult.create exam_id: exam.id, type: 'cadio', limit_exam: '45-9', result_type: '50'
 
-      json = {id: exam.id, patient_id: patient.id, doctor_id: doctor.id, token: '95954A', date: '2021-03-05', 
-              exam_result: [ {type: 'ecg', limit_exam: '59-6', result_type: '45'},
-                             {type: 'emg', limit_exam: '60-8', result_type: '12'},
-                             {type: 'cadio', limit_exam: '45-9', result_type: '50'},
-              ]}.to_json
+      json = { id: exam.id, patient_id: patient.id, doctor_id: doctor.id, token: '95954A', date: '2021-03-05',
+               exam_result: [{ type: 'ecg', limit_exam: '59-6', result_type: '45' },
+                             { type: 'emg', limit_exam: '60-8', result_type: '12' },
+                             { type: 'cadio', limit_exam: '45-9', result_type: '50' }] }.to_json
 
-      expect(exam.to_json(relations:{exam_result: {excepts: ["id"]}})).to eq json
+      expect(exam.to_json(relations: { exam_result: { excepts: ['id'] } })).to eq json
     end
   end
 end
