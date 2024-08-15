@@ -14,3 +14,4 @@ gem 'rubocop', require: false
 gem 'rubocop-rspec'
 gem 'simplecov', require: false
 gem 'sinatra', '~> 4.0'
+gem 'sinatra-cross_origin'

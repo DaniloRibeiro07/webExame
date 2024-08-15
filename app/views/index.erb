@@ -1,3 +1,49 @@
-<form action="/exams" method="get">
-  <button type="submit">Listar todos os exames</button>
-</form>
+<div class="container d-flex align-items-center justify-content-center" id="exams">
+
+</div>
+
+<script>
+  get_all_cards()
+
+  search = (element) => {
+    if (element.value == "") {
+      get_all_cards()
+    }
+    fetch(`${window.location.href}api/V1/exam/${element.value}`)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (json) {
+      document.getElementById("exams").innerHTML = ""
+      json.forEach((exam) => {
+        document.getElementById("exams").innerHTML += card_exam(exam)
+      });
+    });
+  }
+
+  function get_all_cards(){
+    fetch(`${window.location.href}api/V1/exams`)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (json) {
+      document.getElementById("exams").innerHTML = ""
+      json.forEach((exam) => {
+        document.getElementById("exams").innerHTML += card_exam(exam)
+      });
+    });
+  }
+
+  function card_exam(exam) {
+    return `
+      <div class="card text-center mb-3 mx-2" style="width: 18rem;">
+        <h5 class="card-header">Exame: ${exam.token} </h5>
+        <div class="card-body">
+          <p class="card-text">Paciente:  ${exam.patient.name} </p>
+          <p class="card-text">Médico:  ${exam.doctor.name} </p>
+          <a href="#" class="btn btn-primary">Detalhes</a>
+        </div>
+      </div>
+    `
+  }
+</script>
