@@ -16,6 +16,9 @@
           <li class="nav-item">
             <button class="btn nav-link active" aria-current="page" onclick="get_all_cards()">Listar todos os exames</button>
           </li>
+          <li>
+            <button class="btn nav-link active" aria-current="page" onclick="renderHtmlUpload()">Importar Exames</button>
+          </li>
         </ul>
         <form class="d-flex" id="form-search" role="search" onsubmit="search(this)">
           <input class="form-control me-2" id="search_input" type="search" placeholder="Token do Exame" aria-label="Search">
@@ -32,5 +35,6 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script src="./javascript/get_all_exam_module.js"></script>
   <script src="./javascript/search_by_token_module.js"></script>
+  <script src="./javascript/file_upload_module.js"></script>
 </body>
 </html>

@@ -5,6 +5,8 @@ require './db/db'
 require './app/helpers/import_csv_to_bd'
 require './app/jobs/import_csv_job'
 
+require 'sidekiq/api'
+
 class WebApp < Sinatra::Base
   set :views, './app/views/'
   set :public_folder, './app/public/'
@@ -37,6 +39,7 @@ class WebApp < Sinatra::Base
     File.open("./tmp/#{file_code}.csv", 'w') do |f|
       f.write request.body.read
     end
+
     ImportCsvJob.perform_async file_code
   end
 
