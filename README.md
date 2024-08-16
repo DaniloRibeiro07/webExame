@@ -17,19 +17,19 @@ O projeto foi desenvolvido e testado em uma máquina Ubuntu 24.04
 - Clone o projeto (necessário possuir o git instalado na máquina)
 
 ```sh
-  git clone https://github.com/DaniloRibeiro07/webExame.git
+git clone https://github.com/DaniloRibeiro07/webExame.git
 ```
 
 - Entre no projeto
 
 ```sh
-  cd webExame
+cd webExame
 ```
 
 - Script para executar testes na aplicação:
 
 ```sh
-  bin/test.sh
+bin/test.sh
 ```
 Caso de algum erro devido ao terminal, erro de bash ou zsh, copie o código dentro do arquivo bin/start.sh e cole no seu terminal, lembre-se de estar dentro da pasta do projeto. Essa mesma observação serve para os scripts posteriores.
 
