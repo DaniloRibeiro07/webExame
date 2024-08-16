@@ -36,7 +36,7 @@ Caso de algum erro devido ao terminal, erro de bash ou zsh, copie o código dent
 - Script para executar a aplicação:
 
 ```sh
-  bin/start.sh
+bin/start.sh
 ```
 
 Acesse o link [localhost:4567](http://localhost:4567) para visualizar a aplicação funcionando
@@ -44,19 +44,19 @@ Acesse o link [localhost:4567](http://localhost:4567) para visualizar a aplicaç
 - (Opcional) Script para popular o banco de dados da aplicação com 9 exames:
 
 ```sh
-  bin/seed.sh
+bin/seed.sh
 ```
 
 - (Extra) Script para resetar (excluir e criar) o banco de dados da aplicação:
 
 ```sh
-  bin/reset_bd.sh
+bin/reset_bd.sh
 ```
 
 - (Extra) Script para resetar as tabelas do banco de dados da aplicação:
 
 ```sh
-  bin/truncate_bd.sh
+bin/truncate_bd.sh
 ```
 
 # Principais Tecnologias Utilizadas
