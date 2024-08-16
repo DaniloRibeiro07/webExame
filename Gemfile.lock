@@ -99,7 +99,6 @@ GEM
       rack-protection (= 4.0.0)
       rack-session (>= 2.0.0, < 3)
       tilt (~> 2.0)
-    sinatra-cross_origin (0.4.0)
     strscan (3.1.0)
     tilt (2.4.0)
     unicode-display_width (2.5.0)
@@ -120,10 +119,10 @@ DEPENDENCIES
   rspec (~> 3.4)
   rubocop
   rubocop-rspec
+  rubyzip (~> 2.3, >= 2.3.2)
   selenium-webdriver
   simplecov
   sinatra (~> 4.0)
-  sinatra-cross_origin
 
 RUBY VERSION
    ruby 3.2.5p208

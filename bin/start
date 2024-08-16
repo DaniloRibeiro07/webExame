@@ -25,3 +25,13 @@ docker run \
        --network=web-exame-net \
        ruby:3.2.5 \
        bash
+
+docker run \
+       --rm \
+       --name rubyWebExameTeste \
+       -it \
+       -w /app \
+       -v $(pwd):/app \
+       --network=web-exame-net \
+       ruby:3.2.5 \
+       bash

@@ -12,6 +12,7 @@ gem 'rackup', '~> 2.1'
 gem 'rspec', '~> 3.4'
 gem 'rubocop', require: false
 gem 'rubocop-rspec'
+gem 'rubyzip', '~> 2.3', '>= 2.3.2'
 gem 'selenium-webdriver'
 gem 'simplecov', require: false
 gem 'sinatra', '~> 4.0'

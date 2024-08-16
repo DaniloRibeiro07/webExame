@@ -3,14 +3,19 @@
 </div>
 
 <script>
+
+  function clickBuscar(){
+    //document.getElementById("form-search").dispatchEvent(new Event("submit"))
+  }
+
   function search(element){
     let token
     if(element.getAttribute("token")){
       token = element.getAttribute("token")
     }else{
-      token = element.input.value
+      token = element.search_input.value
+      if (token === "") return;
     }
-    if (token === "") return;
 
     fetch(`${window.location.href}api/V1/exam/${token}`)
     .then(function (response) {
@@ -35,15 +40,15 @@
 
       <hr/>
 
-      <div class="row">
-        <div class="col">
+      <div class="row" id="patient-doctor">
+        <div class="col" id="patient">
           <h2>Paciente</h2>
           <h4><strong>Nome completo:</strong> ${exam.patient.name}</h4>
           <h4><strong>Email:</strong> ${exam.patient.email} </h4>
           <h4><strong>Data de nascimento:</strong> ${new Date(exam.patient.date_of_birth).toLocaleDateString("pt-BR")} </h4>
           <h4><strong>Cidade/Estado:</strong> ${exam.patient.city}/${exam.patient.state} </h4>
         </div>
-        <div class="col">
+        <div class="col" id="doctor">
           <h2>Médico Solicitante</h2>
           <h4><strong>Nome completo:</strong> ${exam.doctor.name} </h4>
           <h4><strong>Email:</strong> ${exam.doctor.email} </h4>
@@ -139,7 +144,7 @@
 
   function card_exam(exam) {
     return `
-      <div class="card text-center mb-3 mx-2" style="width: 18rem;" id="${exam.token}">
+      <div class="card text-center mb-3 mx-2  ${exam.token}" style="width: 18rem;" id="${exam.token}">
         <h5 class="card-header">Exame: ${exam.token} </h5>
         <div class="card-body">
           <p class="card-text">Paciente:  ${exam.patient.name} </p>
