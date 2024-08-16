@@ -16,8 +16,8 @@
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
-require './app/controllers/application_controller'
 require_relative './config/spec_simplecov'
+require './app/controllers/application_controller'
 require_relative './config/spec_rack'
 require_relative './config/spec_capybara'
 

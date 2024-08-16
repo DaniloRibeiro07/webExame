@@ -3,18 +3,9 @@
 require 'sinatra/base'
 require './db/db'
 require './app/helpers/import_csv_to_bd'
-require 'sinatra/cross_origin'
 
 class WebApp < Sinatra::Base
   set :views, './app/views/'
-
-  configure do
-    enable :cross_origin
-  end
-
-  before do
-    response.headers['Access-Control-Allow-Origin'] = '*'
-  end
 
   get '/' do
     erb :index, layout: :layout
@@ -35,13 +26,6 @@ class WebApp < Sinatra::Base
 
     result[0].to_json(relations: { patient: { excepts: ['id'] }, doctor: { excepts: ['id'] },
                                    exam_result: { excepts: ['id'] } }, excepts: ['id'])
-  end
-
-  options '*' do
-    response.headers['Allow'] = 'GET, PUT, POST, DELETE, OPTIONS'
-    response.headers['Access-Control-Allow-Headers'] = 'Authorization, Content-Type, Accept, X-User-Email, X-Auth-Token'
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    200
   end
 
   run! if app_file == $PROGRAM_NAME

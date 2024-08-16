@@ -15,4 +15,3 @@ gem 'rubocop-rspec'
 gem 'selenium-webdriver'
 gem 'simplecov', require: false
 gem 'sinatra', '~> 4.0'
-gem 'sinatra-cross_origin'
