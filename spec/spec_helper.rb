@@ -21,10 +21,13 @@ require './app/controllers/application_controller'
 require_relative './config/spec_rack'
 require_relative './config/spec_capybara'
 
+require 'sidekiq/testing'
+
 RSpec.configure do |config|
   config.before(:suite) do
     ENV['TEST'] = 'true'
     Db.reset
+    Sidekiq::Testing.fake!
   end
 
   config.before do

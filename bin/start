@@ -49,6 +49,6 @@ docker run \
        --network=web-exame-net \
        -e REDIS_URL=redis://redis:6379/0 \
        ruby:3.2.5 \
-       bash
+       sidekiq -r ./app/jobs/import_csv_job.rb
 
 docker run -d --rm --name redis -p 6379:6379 -p 8001:8001 --network=web-exame-net redis/redis-stack:latest
