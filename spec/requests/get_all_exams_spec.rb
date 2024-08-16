@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require './app/controllers/application_controller'
-
 describe 'GET api/V1/exams' do
   context 'with sucess' do
     it 'with exams json' do

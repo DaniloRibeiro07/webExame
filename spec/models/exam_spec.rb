@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require './app/models/exam'
-
 describe Exam do
   describe '#self.create' do
     it 'with sucess' do

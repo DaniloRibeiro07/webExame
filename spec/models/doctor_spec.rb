@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require './app/models/doctor'
-
 describe Doctor do
   describe '#self.create' do
     it 'with sucess' do

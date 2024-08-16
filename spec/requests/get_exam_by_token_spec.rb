@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require './app/controllers/application_controller'
-
 describe 'GET api/V1/exam/:token' do
   context 'with sucess' do
     it 'has exam' do

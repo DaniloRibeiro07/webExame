@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require './db/db'
-
 describe Db do
   describe '#self.name' do
     it 'in environment test' do

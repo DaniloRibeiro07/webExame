@@ -14,5 +14,6 @@ gem 'rubocop', require: false
 gem 'rubocop-rspec'
 gem 'rubyzip', '~> 2.3', '>= 2.3.2'
 gem 'selenium-webdriver'
+gem 'sidekiq'
 gem 'simplecov', require: false
 gem 'sinatra', '~> 4.0'

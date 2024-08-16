@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require './app/helpers/import_csv_to_bd'
-
 describe ImportCsvToBd do
   describe '#self.import_csv' do
     it 'sucess' do
