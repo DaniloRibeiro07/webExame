@@ -2,7 +2,7 @@
 
 describe Exam do
   describe '#self.create' do
-    it 'with sucess' do
+    it 'successful' do
       patient = Patient.create cpf: '015.956.326-12', name: 'Joao', email: 'joao@email.com',
                                date_of_birth: '2012-05-05', address: 'rua fernando',
                                city: 'São Paulo', state: 'São Paulo'

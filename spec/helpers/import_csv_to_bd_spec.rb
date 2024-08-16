@@ -2,7 +2,7 @@
 
 describe ImportCsvToBd do
   describe '#self.import_csv' do
-    it 'sucess' do
+    it 'successful' do
       csv_data = File.open './spec/support/exam_data_simple.csv'
       result = ImportCsvToBd.import_csv csv_data.read
 

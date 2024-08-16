@@ -2,7 +2,7 @@
 
 describe Doctor do
   describe '#self.create' do
-    it 'with sucess' do
+    it 'successful' do
       Doctor.create crm: '995', crm_state: 'SE', name: 'Jorge Silva', email: 'jorge@email.com'
 
       last_doctor = Doctor.all.last

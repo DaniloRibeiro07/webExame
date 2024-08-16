@@ -44,5 +44,7 @@ describe 'User acess List Exams from root path' do
     click_on 'Listar todos os exames'
 
     expect(page).to have_content 'Exame: IQCZ17'
+    expect(page).to have_content 'Exame: 0W9I67'
+    expect(page).to have_content 'Exame: T9O6AI'
   end
 end
