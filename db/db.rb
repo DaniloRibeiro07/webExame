@@ -73,7 +73,8 @@ class Db
 
   private_class_method def self.check_if_db_create
     pgdb = PG.connect host: 'PGExame', user: 'admin', password: 'admin', dbname: 'postgres'
-    db_exist = pgdb.exec "select exists(SELECT datname FROM pg_catalog.pg_database WHERE lower(datname) = lower('#{name}'));"
+    sql = "select exists(SELECT datname FROM pg_catalog.pg_database WHERE lower(datname) = lower('#{name}'));"
+    db_exist = pgdb.exec sql
     pgdb.close
     db_exist.to_a[0]['exists'] == 't'
   end
