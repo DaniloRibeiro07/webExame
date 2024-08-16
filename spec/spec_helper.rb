@@ -26,7 +26,8 @@ require 'sidekiq/testing'
 RSpec.configure do |config|
   config.before(:suite) do
     ENV['TEST'] = 'true'
-    Db.reset
+    Db.init_models
+    Db.truncate
     Sidekiq::Testing.fake!
   end
 

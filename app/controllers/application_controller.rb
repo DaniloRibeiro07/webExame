@@ -8,6 +8,8 @@ require './app/jobs/import_csv_job'
 require 'sidekiq/api'
 
 class WebApp < Sinatra::Base
+  Db.init_models
+
   set :views, './app/views/'
   set :public_folder, './app/public/'
 

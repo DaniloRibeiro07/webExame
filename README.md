@@ -1,3 +1,8 @@
+Passos para executar testes da aplicação:
+
+
+
+
 Para executar o projeto, use:
 ```sh 
 bin/start

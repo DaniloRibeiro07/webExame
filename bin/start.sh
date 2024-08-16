@@ -1,19 +1,38 @@
 docker network create web-exame-net 
 
-
-docker run -d --rm --name chrome-server -p 7900:7900 --network=web-exame-net -v $(pwd):/usr/src/app selenium/standalone-chrome:127.0
-
-
+#Executar PG
 docker run \
        --rm \
        --name PGExame \
-       -id \
+       -d \
        -v webExameBD:/var/lib/postgresql/data \
        -e POSTGRES_PASSWORD=admin \
        -e POSTGRES_USER=admin \
        -e POSTGRES_DB=db \
        --network=web-exame-net \
        postgres:13.16
+
+
+docker run \
+       -d \
+       --rm \
+       --name redis \
+       --network=web-exame-net \
+       redis/redis-stack:latest
+
+
+docker run \
+       --rm \
+       --name sidekiq \
+       -d \
+       -w /app \
+       -v $(pwd):/app \
+       -v rubygems:/usr/local/bundle \
+       --network=web-exame-net \
+       -e REDIS_URL=redis://redis:6379/0 \
+       ruby:3.2.5 \
+       sh -c "bundle install && sidekiq -r ./app/jobs/import_csv_job.rb"
+
 
 docker run \
        --rm \
@@ -26,29 +45,10 @@ docker run \
        --network=web-exame-net \
        -e REDIS_URL=redis://redis:6379/0 \
        ruby:3.2.5 \
-       bash
+       sh -c  "bundle install && puma -p 4567"
 
-docker run \
-       --rm \
-       --name rubyWebExameTeste \
-       -it \
-       -w /app \
-       -v $(pwd):/app \
-       -v rubygems:/usr/local/bundle \
-       --network=web-exame-net \
-       ruby:3.2.5 \
-       bash
 
-docker run \
-       --rm \
-       --name sidekiq \
-       -it \
-       -w /app \
-       -v $(pwd):/app \
-       -v rubygems:/usr/local/bundle \
-       --network=web-exame-net \
-       -e REDIS_URL=redis://redis:6379/0 \
-       ruby:3.2.5 \
-       sidekiq -r ./app/jobs/import_csv_job.rb
 
-docker run -d --rm --name redis -p 6379:6379 -p 8001:8001 --network=web-exame-net redis/redis-stack:latest
+       
+
+

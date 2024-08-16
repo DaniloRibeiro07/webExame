@@ -17,12 +17,12 @@ class Db
   end
 
   def self.init_models
+    create_database unless check_if_db_create
+
     begin
       pgdb = PG.connect host: 'PGExame', user: 'admin', password: 'admin', dbname: name
 
       MODELS.each do |model|
-        next if model.in_bd?
-
         create_model_in_db(pgdb, model)
       end
     rescue StandardError => e
@@ -44,26 +44,37 @@ class Db
 
   def self.reset
     begin
-      pgdb = PG.connect host: 'PGExame', user: 'admin', password: 'admin', dbname: 'postgres'
-      drop_database(pgdb)
-      create_database(pgdb)
+      drop_database
+      create_database
     rescue StandardError => e
       puts e
-      create_database(pgdb)
+      create_database
     end
-    pgdb.close
     init_models
   end
 
-  private_class_method def self.drop_database(pgdb)
+  private_class_method def self.drop_database
+    pgdb = PG.connect host: 'PGExame', user: 'admin', password: 'admin', dbname: 'postgres'
     pgdb.exec "DROP DATABASE #{name}"
+    pgdb.close
   end
 
-  private_class_method def self.create_database(pgdb)
+  private_class_method def self.create_database
+    pgdb = PG.connect host: 'PGExame', user: 'admin', password: 'admin', dbname: 'postgres'
     pgdb.exec "CREATE DATABASE #{name}"
+    pgdb.close
   end
 
   private_class_method def self.create_model_in_db(pgdb, model)
+    return if model.in_bd?
+
     pgdb.exec model::SQL
+  end
+
+  private_class_method def self.check_if_db_create
+    pgdb = PG.connect host: 'PGExame', user: 'admin', password: 'admin', dbname: 'postgres'
+    db_exist = pgdb.exec "select exists(SELECT datname FROM pg_catalog.pg_database WHERE lower(datname) = lower('#{name}'));"
+    pgdb.close
+    db_exist.to_a[0]['exists'] == 't'
   end
 end
