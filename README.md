@@ -45,7 +45,7 @@ Caso de algum erro diferente, erro de bash ou zsh, copie o código dentro do arq
 bin/start.sh
 ```
 
-Caso ocorra o erro _Permission denied_, execute:
+Caso ocorra o erro _Permission denied_, execute o chmod abaixo em seguida o bin:
 
 ```sh
 chmod +x bin/start.sh
@@ -59,7 +59,7 @@ Acesse o link [localhost:4567](http://localhost:4567) para visualizar a aplicaç
 bin/seed.sh
 ```
 
-Caso ocorra o erro _Permission denied_, execute o chmod abaixo em seguida do bin:
+Caso ocorra o erro _Permission denied_, execute o chmod abaixo em seguida o bin:
 
 ```sh
 chmod +x bin/seed.sh
@@ -71,7 +71,7 @@ chmod +x bin/seed.sh
 bin/reset_bd.sh
 ```
 
-Caso ocorra o erro _Permission denied_, execute o chmod abaixo em seguida do bin:
+Caso ocorra o erro _Permission denied_, execute o chmod abaixo em seguida o bin:
 ```sh
 chmod +x bin/reset_bd.sh
 ```

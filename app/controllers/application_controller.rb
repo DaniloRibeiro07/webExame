@@ -4,7 +4,7 @@ require 'sinatra/base'
 require './db/db'
 require './app/helpers/import_csv_to_bd'
 require './app/jobs/import_csv_job'
-
+require 'fileutils'
 require 'sidekiq/api'
 
 class WebApp < Sinatra::Base
@@ -38,6 +38,7 @@ class WebApp < Sinatra::Base
 
   post '/uploadCSV' do
     file_code = SecureRandom.hex(10)
+    FileUtils.mkdir_p './tmp'
     File.open("./tmp/#{file_code}.csv", 'w') do |f|
       f.write request.body.read
     end
