@@ -1,0 +1,91 @@
+services:
+  start:
+    extends:
+      service: ruby
+    container_name: rubyWebExame
+    ports:
+      - 4567:4567
+    depends_on:
+      redis:
+        condition: service_started
+        required: true
+      sidekiq:
+        condition: service_started
+        required: true
+    command: sh -c  "bundle install && puma -p 4567"
+
+  seed:
+    extends:
+      service: ruby
+    command: sh -c "bundle install && ruby './db/seed.rb'"
+  
+  reset_bd:
+    extends:
+      service: ruby
+    command: sh -c "bundle install && ruby './db/reset_bd.rb'"
+  
+  truncate_bd:
+    extends:
+      service: ruby
+    command: sh -c "bundle install && ruby './db/truncate_bd.rb'"
+
+  test:
+    extends:
+      service: ruby
+    depends_on:
+      browser:
+        condition: service_started
+        required: true
+        restart: true
+    container_name: rubyWebExameTeste
+    command: sh -c "bundle install && rspec"
+
+  db:
+    image: postgres:13.16
+    container_name: PGExame
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: admin
+      POSTGRES_DB: db
+    volumes:
+      - webExameBD:/var/lib/postgresql/data
+
+  redis:
+    image: redis/redis-stack:latest
+    container_name: redis
+
+
+  sidekiq:
+    image: ruby:3.2.5
+    container_name: sidekiq
+    environment:
+      REDIS_URL: redis://redis:6379/0
+    volumes:
+      - rubygems:/usr/local/bundle
+      - .:/app
+    working_dir: /app
+    command: sh -c "bundle install && sidekiq -r ./app/jobs/import_csv_job.rb"
+
+  ruby:
+    image: ruby:3.2.5
+    environment:
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      db:
+        condition: service_started
+        required: true
+    volumes:
+      - rubygems:/usr/local/bundle
+      - .:/app
+    working_dir: /app
+
+  browser:
+    image: selenium/standalone-chrome:127.0
+    container_name: chrome-server
+    volumes:
+      - ./:/usr/src/app
+    platform: linux/amd64
+    
+volumes:
+  rubygems:
+  webExameBD:

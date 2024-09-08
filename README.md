@@ -26,65 +26,35 @@ git clone https://github.com/DaniloRibeiro07/webExame.git
 cd webExame
 ```
 
-- Script para executar testes na aplicação:
+- Comando para executar testes na aplicação:
 
 ```sh
-bin/test.sh
+docker compose up test
 ```
-Caso ocorra erro _Permission denied_, você pode exectar o seguinte comando no terminal para que libere o acesso e em seguida executar o bin/test.sh novamente:
+- Comando para executar a aplicação:
 
 ```sh
-chmod +x bin/test.sh
-```
-
-Caso de algum erro diferente, erro de bash ou zsh, copie o código dentro do arquivo bin/test.sh e cole no seu terminal, lembre-se de estar dentro da pasta do projeto. Essa mesma observação serve para os scripts posteriores.
-
-- Script para executar a aplicação:
-
-```sh
-bin/start.sh
-```
-
-Caso ocorra o erro _Permission denied_, execute o chmod abaixo em seguida o bin:
-
-```sh
-chmod +x bin/start.sh
+docker compose up start
 ```
 
 Acesse o link [localhost:4567](http://localhost:4567) para visualizar a aplicação funcionando
 
-- (Opcional) Script para popular o banco de dados da aplicação com 9 exames:
+- (Opcional) Comando para popular o banco de dados da aplicação com 9 exames:
 
 ```sh
-bin/seed.sh
-```
-
-Caso ocorra o erro _Permission denied_, execute o chmod abaixo em seguida o bin:
-
-```sh
-chmod +x bin/seed.sh
+docker compose up seed
 ```
 
 - (Extra) Script para resetar (excluir e criar) o banco de dados da aplicação:
 
 ```sh
-bin/reset_bd.sh
-```
-
-Caso ocorra o erro _Permission denied_, execute o chmod abaixo em seguida o bin:
-```sh
-chmod +x bin/reset_bd.sh
+docker compose up reset_bd
 ```
 
 - (Extra) Script para resetar as tabelas do banco de dados da aplicação:
 
 ```sh
-bin/truncate_bd.sh
-```
-
-Caso ocorra o erro _Permission denied_, execute o chmod abaixo em seguida do bin:
-```sh
-chmod +x bin/truncate_bd.sh
+docker compose up truncate_bd
 ```
 
 # Principais Tecnologias Utilizadas
